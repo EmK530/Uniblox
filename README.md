@@ -1,6 +1,12 @@
 # Uniblox Backlog
 Backlog for Uniblox development.
 
+## What is this repository?
+This is the soon to be repository for Uniblox. An attempt at emulating non-humanoid Roblox games<br>
+by importing all instances straight from an RBXL and emulating Luau as closely as possible.
+
+For the time being, there is nothing to really see here. Come back at a later time.
+
 ## Opcode support
 ✅ - Supported<br>
 ⚠️ - Possibly inaccurate<br>
@@ -19,10 +25,11 @@ Backlog for Uniblox development.
 ❌ `LOP_GETTABLE` `LOP_SETTABLE`<br>
 ❌ `LOP_GETTABLEKS` `LOP_SETTABLEKS`<br>
 ❌ `LOP_GETTABLEN` `LOP_SETTABLEN`<br>
-❌ `LOP_NEWCLOSURE` `LOP_DUPCLOSURE`<br>
+❌ `LOP_NEWCLOSURE`<br>
+✅ `LOP_DUPCLOSURE`<br>
 ✅ `LOP_NAMECALL`<br>
 ℹ️ `LOP_CALL`<br>
-❌ `LOP_RETURN`<br>
+ℹ️ `LOP_RETURN`<br>
 ✅ `LOP_JUMP` `LOP_JUMPBACK`<br>
 ✅ `LOP_JUMPIF` `LOP_JUMPIFNOT`<br>
 ❌ `LOP_JUMPIFEQ` `LOP_JUMPIFLE` `LOP_JUMPIFLT` `LOP_JUMPIFNOTEQ` `LOP_JUMPIFNOTLE` `LOP_JUMPIFNOTLT`<br>
