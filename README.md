@@ -1,16 +1,20 @@
-# Uniblox Backlog
-Backlog for Uniblox development.
+# Uniblox
+Roblox RBXL importer and Luau emulator in Unity 6.2
 
 ## What is this repository?
-This is the soon to be repository for Uniblox. An attempt at emulating non-humanoid Roblox games<br>
-by importing all instances straight from an RBXL and emulating Luau as closely as possible.
+This is a repository for the upcoming project Uniblox, that emulates non-humanoid Roblox games<br>
+in Unity by parsing instances from an RBXL file and emulating Luau code.
 
-For the time being, there is nothing to really see here. Come back at a later time.
+At the moment, the repository will only contain the code related to the engine for eventual contributions.<br>
+When the project is finalized and ready for release, it will be updated to contain the Unity project files.
 
-## Opcode support
+## Luau Opcode Support
+Table of opcodes detailing what the Luau emulator currently supports.<br>
+This should not be used as a measurement of completion, because Luau is more than opcodes.
+
 ✅ - Supported<br>
 ⚠️ - Possibly inaccurate<br>
-ℹ️ - Incomplete<br>
+ℹ️ - Work in progress<br>
 ✖️ - Ignored<br>
 ❌ - Unsupported, will halt execution if ran into<br>
 
