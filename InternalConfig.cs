@@ -11,14 +11,7 @@ public class InternalConfig
     // Used automatically by ByteReader
     public static Dictionary<string, AESKey> EncryptedAssetKeys = new Dictionary<string, AESKey>()
     {
-        ["content-g1.bytes"] = new AESKey(
-            new byte[] { 57, 101, 94, 162, 68, 198, 106, 98, 37, 90, 6, 206, 12, 121, 74, 178, 146, 67, 244, 46, 48, 214, 47, 119, 227, 177, 44, 91, 236, 148, 219, 166 },
-            new byte[] { 7, 161, 106, 178, 154, 157, 21, 116, 173, 180, 230, 116, 12, 128, 81, 109, 87, 114, 213, 192, 162, 77, 48, 241, 69, 229, 245, 17, 120, 55, 50, 158 }
-        ),
-        ["content-g2.bytes"] = new AESKey(
-            new byte[] { 57, 101, 94, 162, 68, 198, 106, 98, 37, 90, 6, 206, 12, 121, 74, 178, 146, 67, 244, 46, 48, 214, 47, 119, 227, 177, 44, 91, 236, 148, 219, 166 },
-            new byte[] { 7, 161, 106, 178, 154, 157, 21, 116, 173, 180, 230, 116, 12, 128, 81, 109, 87, 114, 213, 192, 162, 77, 48, 241, 69, 229, 245, 17, 120, 55, 50, 158 }
-        )
+        
     };
 
     public static AESKey ScriptCacheKey = new AESKey(
