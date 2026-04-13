@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 // RBXL Importer for Uniblox
 
 public class GameLoader : MonoBehaviour
 {
-    public string TargetBinaryName = "resources.bytes";
+    public string TargetBinaryName = "TestPlace.rbxl";
     public Transform DataModel;
 
     private ByteReader reader;
-    private int state = 0;
+    private int state = -1;
 
+    public static UnityEvent<string> GameLoaderStatus = new UnityEvent<string>();
     public static UnityEvent GameLoadCompleted = new UnityEvent();
 
     void Start()
@@ -213,6 +213,7 @@ public class GameLoader : MonoBehaviour
                 values = new object[instanceCount];
                 break;
         }
+
         foreach (uint referent in classIds[classId].referents)
         {
             instances[referent].properties.Add(name, values[valIndex]);
@@ -337,19 +338,35 @@ public class GameLoader : MonoBehaviour
         }
 
         state = 1;
-        print("All data loaded, converting to GameObjects...");
+        print("All data loaded from RBXL.");
+        GameLoaderStatus.Invoke("Compiling Scripts");
 
         return true;
     }
 
-    private bool State1_CreateObjects()
+    private bool State1_CompileScripts()
+    {
+        foreach (GLInstance inst in instances.Values)
+        {
+            if (inst.properties.ContainsKey("Source"))
+                inst.properties["Source"] = ScriptCompiler.Compile((string)inst.properties["Source"]);
+        }
+        print("Script compilation stage complete.");
+        GameLoaderStatus.Invoke("Creating GameObjects");
+        state = 2;
+        return true;
+    }
+
+    private bool State2_CreateObjects()
     {
         foreach(GLInstance inst in instances.Values)
         {
             if (inst.parent == -1)
                 RecurseObjectCreation(inst, DataModel, null);
         }
-        state = 2;
+        print("Instances converted to Unity GameObjects.");
+        GameLoaderStatus.Invoke("Initiating TaskScheduler");
+        state = 3;
         return true;
     }
 
@@ -407,28 +424,42 @@ public class GameLoader : MonoBehaviour
         }
     }
 
-    private bool State2_InitGameState()
+    private bool State3_InitGameState()
     {
+        print("Initiating TaskScheduler.");
+        classIds.Clear();
+        instances.Clear();
+        System.Runtime.GCSettings.LargeObjectHeapCompactionMode = System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce;
+        GC.Collect();
         TaskScheduler.Enable();
         GameLoadCompleted.Invoke();
         return false;
     }
+
+    private static float timer = 0;
 
     // Return false when the task is finished
     private bool SM_Work(float deltaTime)
     {
         switch (state)
         {
+            case -1:
+                state = 0;
+                return true;
             case 0:
+                timer = Time.realtimeSinceStartup;
                 return State0_ParseInstances();
             case 1:
-                LuauGlobals.Initialize();
-                return State1_CreateObjects();
+                return State1_CompileScripts();
             case 2:
-                return State2_InitGameState();
+                LuauGlobals.Initialize();
+                return State2_CreateObjects();
+            case 3:
+                return State3_InitGameState();
             default:
                 break;
         }
+        Debug.Log("Game loaded in: " + (Time.realtimeSinceStartup - timer));
         return false;
     }
 }

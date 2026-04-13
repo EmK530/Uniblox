@@ -5,6 +5,10 @@ using System.Collections.Generic;
 [AttributeUsage(AttributeTargets.Method)]
 public class LuauCallable : Attribute { }
 
+// Makes properties and fields not fetchable from a class instance in the Luau emulator, only the global
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method)]
+public class StaticOnly : Attribute { }
+
 // Completely hide properties/fields from the Luau emulator
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
 public class Hidden : Attribute {}
