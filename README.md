@@ -8,6 +8,44 @@ in Unity by parsing instances from an RBXL file and emulating Luau code.
 At the moment, the repository will only contain the code related to the engine for eventual contributions.<br>
 When the project is finalized and ready for release, it will be updated to contain the Unity project files.
 
+## GameLoader Property Support
+Table of property types that the RBXL parser currently is able to parse from the binary.<br>
+
+✅ - Supported<br>
+❌ - Unsupported, will be ignored if ran into<br>
+
+✅ `0x01: String`<br>
+✅ `0x02: Bool`<br>
+✅ `0x03: Int32`<br>
+❌ `0x04: Float32`<br>
+❌ `0x05: Float64`<br>
+❌ `0x06: UDim`<br>
+❌ `0x07: UDim2`<br>
+❌ `0x08: Ray`<br>
+❌ `0x09: Faces`<br>
+❌ `0x0A: Axes`<br>
+❌ `0x0B: BrickColor`<br>
+❌ `0x0C: Color3`<br>
+❌ `0x0D: Vector2`<br>
+❌ `0x0E: Vector3`<br>
+❌ `0x10: CFrame`<br>
+❌ `0x12: Enum`<br>
+❌ `0x13: Referent`<br>
+❌ `0x14: Vector3int16`<br>
+❌ `0x15: NumberSequence`<br>
+❌ `0x16: ColorSequence`<br>
+❌ `0x17: NumberRange`<br>
+❌ `0x18: Rect`<br>
+❌ `0x19: PhysicalProperties`<br>
+❌ `0x1A: Color3uint8`<br>
+❌ `0x1B: Int64`<br>
+❌ `0x1C: SharedString`<br>
+✅ `0x1D: Bytecode`<br>
+❌ `0x1E: OptionalCoordinateFrame`<br>
+❌ `0x1F: UniqueId`<br>
+❌ `0x20: Font`<br>
+❌ `0x22: Content`<br>
+
 ## Luau Opcode Support
 Table of opcodes detailing what the Luau emulator currently supports.<br>
 This should not be used as a measurement of completion, because Luau is more than opcodes.
